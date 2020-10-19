@@ -1,0 +1,161 @@
+﻿<Window x:Class="UknownApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UknownApp"
+        xmlns:WebView="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls.WebView"
+        mc:Ignorable="d"
+        Title="UnknownYoutubeApp" 
+        Height="421.459" 
+        Width="874.155" 
+        WindowStartupLocation="CenterScreen" 
+        Background="#0F1521" MinWidth="553" 
+        MinHeight="491.459">
+
+    <Grid Margin="0,0,2,-1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="441"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="95"/>
+            <RowDefinition/>
+            <RowDefinition Height="59"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock 
+            Text="Запрос"
+            Style="{StaticResource Textblocks}" 
+            Margin="10,20,0,55"/>
+
+        <TextBox
+            x:Name="txbSearch"
+            Style="{StaticResource TextboxStyle}"
+            Tag="Введи запрос и нажми Enter"
+            KeyDown="TxbSearch_KeyDown" Margin="12,47,0,0">
+
+        </TextBox>
+
+        <ListView 
+            x:Name="lsbVideos"
+            Grid.Row="1"
+            Margin="5"
+            HorizontalContentAlignment="Left"
+            Style="{StaticResource Corner}"
+            ItemsSource="{Binding videos}"
+            SelectionChanged="LsbVideos_SelectionChanged"
+            MouseDoubleClick="LsbVideos_MouseDoubleClick">
+            <ListView.DataContext>
+                <local:Search/>
+            </ListView.DataContext>
+        </ListView>
+
+        <TextBlock 
+            Style="{StaticResource Textblocks}"
+            Text="Ссылки" 
+            Margin="10,75,0,0"/>
+
+        <TextBlock 
+            Style="{StaticResource Textblocks}"
+            Grid.Column="1" 
+            Text="Просмотр"             
+            Margin="0,75,0,0"/>
+
+        <TextBlock 
+            x:Name="txtResult"
+            Style="{StaticResource Textblocks}"
+            Text="" 
+            Margin="172,2,0,37" 
+            Grid.Row="2" Width="60"/>
+
+        <Canvas
+            Name="canvasViseo"
+            Grid.Column="1"
+            Grid.Row="1"
+            Margin="5">
+            <Border 
+                x:Name="borderVideo"
+                BorderBrush="DarkGray" 
+                BorderThickness="1"
+                CornerRadius="5"
+                Background="#17212B"
+                Height="{Binding Path=ActualHeight, ElementName=canvasViseo}"
+                Width="{Binding Path=ActualWidth, ElementName=canvasViseo}">
+                <WebView:WebView 
+                    Name="browser"
+                    Margin="9"
+                    Visibility="Hidden"/>
+            </Border>
+            
+        </Canvas>
+
+        <Button 
+            x:Name="btnSave" 
+            Content="Скачать" 
+            Margin="10,20,355,0" 
+            Grid.Row="2" 
+            VerticalAlignment="Top" 
+            Style="{StaticResource ButtonsStyle}" 
+            Click="BtnSave_Click"/>
+
+        <Button 
+            x:Name="btnJson"
+            Style="{StaticResource ButtonsStyle}"
+            Margin="91,20,274,9" 
+            Grid.Row="2" 
+            Click="BtnJson_Click">
+            <StackPanel>
+                <TextBlock 
+                    Text="Сохранить" 
+                    HorizontalAlignment="Center"
+                    FontSize="10"/>
+                <TextBlock
+                    Text="список" 
+                    HorizontalAlignment="Center"
+                    FontSize="10"/>
+            </StackPanel>
+        </Button>
+
+        <Button 
+            x:Name="btnJsonOpen"
+            Style="{StaticResource ButtonsStyle}"
+            Margin="172,20,193,9" 
+            Grid.Row="2" 
+            Click="BtnJsonOpen_Click" >
+            <StackPanel>
+                <TextBlock 
+                    Text="Открыть" 
+                    HorizontalAlignment="Center"
+                    FontSize="10"/>
+                <TextBlock
+                    Text="список" 
+                    HorizontalAlignment="Center"
+                    FontSize="10"/>
+            </StackPanel>
+        </Button>
+
+        <Button 
+            x:Name="btnClear"
+            Style="{StaticResource ButtonsStyle}"
+            Margin="253,20,112,9" 
+            Grid.Row="2"
+            Content="Очистить" 
+            Click="BtnClear_Click">
+        </Button>
+
+        <ProgressBar 
+            x:Name="progress"
+            Maximum="100"
+            HorizontalAlignment="Left" 
+            Height="11" 
+            Margin="12,4,0,0" 
+            Grid.Row="2" 
+            VerticalAlignment="Top" 
+            Width="155"
+            Foreground="#2B5279"
+            Background="#0F1521">
+        </ProgressBar>
+    </Grid>
+
+</Window>
